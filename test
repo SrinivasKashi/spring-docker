@@ -1,0 +1,23 @@
+#from sha256:75b0293e60c9c2c49b490fa0730b03fcca3abe10b1b24fc1a991d053d78b4727
+#ADD file:8ec69d882e7f29f0652d537557160e638168550f738d0d49f90a7ef96bf31787 in / 
+#CMD ["/bin/sh"]
+#RUN apk add --no-cache ca-certificates skopeo  && ln -s /usr/bin/skopeo /skopeo
+#FROM openjdk:8-jdk-alpine as builder
+#COPY --from=builder /usr/bin/ /usr/bin/
+#ARG JAR_FILE=build/libs/*.jar
+#COPY ${JAR_FILE} /tmp/app.jar
+#CMD ["ln -s skopeo /skopeo"]
+#ENTRYPOINT ["java","-jar","/app.jar"]
+
+#FROM ananace/skopeo:latest
+#COPY --from=builder /tmp/app.jar /tmp
+#ENTRYPOINT ["java","-jar","/tmp/app.jar"]
+#FROM node:12-alpine
+#RUN yum install skopeo
+#FROM openjdk:8-jdk-alpine
+#COPY --from=builder /usr/bin/ /usr/bin/
+#ARG JAR_FILE=build/libs/*.jar
+#COPY ${JAR_FILE} app.jar
+#CMD ["ln -s skopeo /skopeo"]
+#ENTRYPOINT ["java","-jar","/app.jar"]
+FROM ananace/skopeo:latest as builder
